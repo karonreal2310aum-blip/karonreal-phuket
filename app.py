@@ -7,7 +7,7 @@ NGROK_URL = "https://copy-fountain-contend.ngrok-free.dev -> http://localhost:80
 # =====================================================
 
 st.set_page_config(page_title="Karon Real Phuket", layout="wide")
-st.title("🏝️ Karon Real Phuket — ระบบจัดการทรัพย์สิน")
+st.title("🏝️ Karon Real Phuket — ระบบจัดการห้องพัก")
 
 # ทดสอบเชื่อมต่อ
 try:
@@ -19,19 +19,19 @@ except Exception as e:
     st.stop()
 
 menu = st.sidebar.radio("เมนูหลัก", [
-    "📋 แดชบอร์ด", "🏠 จัดการทรัพย์สิน", "📅 จัดการการจอง", "💰 รายรับ-รายจ่าย"
+    "📋 แดชบอร์ด", "🏠 จัดการห้องพัก", "📅 จัดการการจอง", "💰 รายรับ-รายจ่าย"
 ])
 
 if menu == "📋 แดชบอร์ด":
     st.header("ภาพรวมระบบ")
     s = requests.get(f"{NGROK_URL}/summary").json()
     col1, col2, col3 = st.columns(3)
-    col1.metric("ทรัพย์สินทั้งหมด", s["total_prop"])
+    col1.metric("ห้องพักทั้งหมด", s["total_prop"])
     col2.metric("ว่างให้เช่า", s["available"])
     col3.metric("คงเหลือ", f"{s['income'] - s['expense']:,.2f} บาท")
 
-elif menu == "🏠 จัดการทรัพย์สิน":
-    st.header("ข้อมูลทรัพย์สิน")
+elif menu == "🏠 จัดการห้องพัก":
+    st.header("ข้อมูลห้องพัก")
     with st.form("add_property"):
         name = st.text_input("ชื่อ/ชื่อห้อง")
         location = st.text_input("ที่ตั้ง")
@@ -54,7 +54,7 @@ elif menu == "📅 จัดการการจอง":
     props = requests.get(f"{NGROK_URL}/properties").json()
     avail = [(p["id"], p["name"]) for p in props if p["status"] == "ว่าง"]
     with st.form("add_booking"):
-        selected = st.selectbox("เลือกทรัพย์สิน", avail, format_func=lambda x: x[1])
+        selected = st.selectbox("เลือกห้องพัก", avail, format_func=lambda x: x[1])
         prop_id = selected[0]
         guest = st.text_input("ชื่อผู้เข้าพัก")
         check_in = st.date_input("วันที่เช็คอิน")
