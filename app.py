@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 
 # ========== ต้องแก้ไขทุกครั้งที่ลิงก์เปลี่ยน ==========
-NGROK_URL = "https://copy-fountain-contend.ngrok-free.dev -> http://localhost:8000"  # ใส่ลิงก์จากข้างบนตรงนี้
+NGROK_URL = "https://copy-fountain-contend.ngrok-free.dev"  # ใส่ลิงก์จากข้างบนตรงนี้
 # =====================================================
 
 st.set_page_config(page_title="Karon Real Phuket", layout="wide")
